@@ -1,21 +1,22 @@
 ---
-summary: "WorkBuddy provider notes: transcript roots and shared session readers, the app-owned credential session, its encryption boundary, managed browser login and account identity, and the billing contract."
-ids: [workbuddy]
+summary: "WorkBuddy provider notes: the two editions' transcript roots and shared session readers, the app-owned credential session, its encryption boundary, managed browser login and account identity, and the billing contract."
+ids: [workbuddy, workbuddy-ai]
 read_when:
   - Changing WorkBuddy session discovery, titles, turn status or Session Detail
   - Adding or changing WorkBuddy limits collection
   - Changing how the WorkBuddy desktop session is read, validated, or reported
   - Debugging a WorkBuddy row that shows as signed out on a signed-in machine
   - Changing WorkBuddy credential handling or the app-session security boundary
+  - Touching the WorkBuddy / WorkBuddy AI usage split or its archive eras
 ---
 
 # WorkBuddy provider
 
-WorkBuddy's usage, transcript enrichment and quota reads have independent sources. Keep them separate when changing or debugging the provider.
+WorkBuddy ships two regional builds that keep separate homes: the Tencent CN build writes `~/.workbuddy`, and the international WorkBuddy AI build writes `~/.workbuddy-ai`. Both are tracked clients — `workbuddy` and `workbuddy-ai` — and both write byte-identical transcripts, so every reader is shared and only the home root and client id differ. WorkBuddy's usage, transcript enrichment and quota reads have independent sources. Keep them separate when changing or debugging the provider.
 
 | Data plane | What it measures | Primary runtime | Inputs |
 | --- | --- | --- | --- |
-| Token/session activity | Local model-token activity attributed to WorkBuddy | Shared usage collector through `tokscale` | Local WorkBuddy conversation data |
+| Token/session activity | Local model-token activity attributed to WorkBuddy (CN) and WorkBuddy AI (international) | Shared usage collector through `tokscale`; the AI root is the fork's `workbuddy-ai` client (`crates/tokscale-core/src/token_monitor/workbuddy_ai.rs`) | Local WorkBuddy conversation data |
 | Session metadata and Detail | Titles, turn boundaries, prompts, tools and per-turn tokens | Shared local metadata and Session Detail readers | WorkBuddy JSONL transcripts |
 | Limits/quota | Remaining WorkBuddy Credits | Shared limits runtime | The discovered desktop session, managed browser logins, or a headless billing token |
 
@@ -23,9 +24,11 @@ Local App quota monitoring runs in the Electron main process on macOS and Window
 
 ## Session transcripts
 
-Session discovery checks `~/.workbuddy/projects/**/*.jsonl`, then `~/.workbuddy-ai/projects/**/*.jsonl`; the latter is the home used by WorkBuddy 5.5. Both remain supported because tokscale scans both, and the first matching transcript wins. `providers/workbuddy/sessionMetadata.js` binds the shared CodeBuddy metadata reader to these roots. Token totals continue to come from tokscale, independently of whether a local transcript can be resolved.
+Session discovery checks `~/.workbuddy/projects/**/*.jsonl` for the CN client and `~/.workbuddy-ai/projects/**/*.jsonl` for WorkBuddy AI. The CN list keeps the AI root as a 5.5-era fallback — that build briefly moved there before the international build took the home over — so old CN transcripts still resolve, first match winning. Upstream tokscale folded both roots into one `workbuddy` client (it added the AI root when "WorkBuddy 5.5" and "WorkBuddy AI" were thought to share the home move, junhoyeo/tokscale#1334); the fork scans the AI root under its own `workbuddy-ai` client instead, and the scanner must not point the upstream WorkBuddy lane at the AI root again — a shared root lands both editions' usage on one id, and re-adding it double-counts across the pair. Watch lanes follow the same split (`workbuddy-projects` / `workbuddy-ai-projects`); the AI root's 5.5-era transcripts are static and are not watched. `providers/workbuddy/sessionMetadata.js` binds the shared CodeBuddy metadata reader to these roots per client. Token totals continue to come from tokscale, independently of whether a local transcript can be resolved.
 
-The shared resolver receives the client id in its context and keeps existing metadata under `workbuddy:<sessionId>`. Bare session ids can coincide with CodeBuddy ids; sharing a parser must not share cached titles, turn state or project identity across clients.
+The shared resolver receives the client id in its context and keeps existing metadata under `workbuddy:<sessionId>` / `workbuddy-ai:<sessionId>`. Bare session ids can coincide with CodeBuddy ids; sharing a parser must not share cached titles, turn state or project identity across clients.
+
+The split is a client-identity split (`clientIdentitySplits.js`, era generation 3): every `workbuddy` snapshot written before it may contain WorkBuddy AI usage, so the archives keep folding `workbuddy-ai` rows back into `workbuddy` on those entries while post-split entries stand alone. Because dedup keys are client-prefixed, a session present in both homes counts once per edition — which is correct for a partition, not a duplicate to dedup away.
 
 WorkBuddy shares the [CodeBuddy transcript format and readers](codebuddy.md#workbuddy-writes-the-same-family), with two compatibility rules: a non-empty `custom-title` takes priority over `ai-title`, and older records without `providerData.messageId` or cache details still produce turns from their usage-bearing records. WorkBuddy's `<user_query>` prompt is extracted from the surrounding context envelope. Token conversion follows the pinned Tencent Buddy parser, including usage-object precedence, conditional cache subtraction and additive reasoning/cache writes; live rows, history and Detail share the same total.
 
@@ -115,6 +118,7 @@ That distinction is the whole point: an encrypted credential is not a signed-out
 ## Verification checklist
 
 - both transcript roots, custom-title precedence and older ungrouped usage records;
+- the `workbuddy-ai` token contract fixture runs against the pinned fork build and the CN lane keeps its totals when the AI root holds 5.5-era transcripts;
 - streamed Session Detail, oversized-record errors and async WSL fallback;
 - personal and enterprise billing mapping, including the unlimited enterprise plan;
 - an empty active-package list staying visible as configured;

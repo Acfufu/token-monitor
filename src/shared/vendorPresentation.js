@@ -61,6 +61,8 @@
     { id: 'kiro', color: '#9046FF', widgetColor: '#A66AFF' },
     { id: 'codebuddy', color: '#6C4DFF', widgetColor: '#8064FF' },
     { id: 'workbuddy', color: '#0DC8A5' },
+    // Same vendor mark as WorkBuddy; the editions differ by label, not artwork.
+    { id: 'workbuddy-ai', color: '#0DC8A5', icon: 'workbuddy' },
     { id: 'proma', color: '#000000', widgetInk: true },
     { id: 'catpaw', color: '#00FFA2' },
     { id: 'qodercn', color: '#2ADB5C' },

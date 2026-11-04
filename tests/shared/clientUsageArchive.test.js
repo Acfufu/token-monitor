@@ -487,7 +487,7 @@ test('a genuinely Pi-only snapshot written after the split keeps its full total'
       sessions: { 'pi:pi1': session('pi', 'pi1', 100) }
     }]))
   }, 'pi', now);
-  assert.equal(piOnly.clients.pi.clientIdentityGeneration, 2, 'the write must be marked');
+  assert.equal(piOnly.clients.pi.clientIdentityGeneration, 3, 'the write must be marked');
   const applied = applyArchivedClientUsage(
     liveSummary(now, { omp: [['ompX', 40]] }),
     piOnly,

@@ -237,10 +237,11 @@ const CLIENT_SOURCE_CHECK_IDS = Object.freeze([
   'tokscale-antigravity-cache',
   'tokscale-cursor-cache',
   'unsloth-db',
-  'vscode-empty-window-sessions',
-  'vscode-workspace-storage',
-  'workbuddy-projects',
-  'zcode-cli-db',
+    'vscode-empty-window-sessions',
+    'vscode-workspace-storage',
+    'workbuddy-ai-projects',
+    'workbuddy-projects',
+    'zcode-cli-db',
   'zcode-projects',
   'zed-threads'
 ]);

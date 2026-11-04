@@ -160,6 +160,6 @@ test('a binary without the fork client module fails closed', () => {
       spawn,
       log: () => {}
     }),
-    /does not accept the fork-only client ids catpaw, qodercn \(scan exited 2/
+    /does not accept the fork-only client ids workbuddy-ai, catpaw, qodercn \(scan exited 2/
   );
 });

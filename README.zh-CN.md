@@ -30,7 +30,7 @@
 
 ## Token Monitor 是什么？
 
-一款桌面应用，实时显示 Claude Code、Codex、Cursor、GitHub Copilot、Cherry Studio 等 48+ 种 AI 编程工具的 Token 用量与 AI 工具额度，具备实时多设备同步与历史使用趋势功能，并支持按工具、设备、模型、session 或项目分项显示。它出现在你目光所及之处：主窗口、MacBook 刘海、菜单栏或系统托盘、屏幕边缘、悬浮小窗，以及原生 macOS 小部件。
+一款桌面应用，实时显示 Claude Code、Codex、Cursor、GitHub Copilot、Cherry Studio 等 49+ 种 AI 编程工具的 Token 用量与 AI 工具额度，具备实时多设备同步与历史使用趋势功能，并支持按工具、设备、模型、session 或项目分项显示。它出现在你目光所及之处：主窗口、MacBook 刘海、菜单栏或系统托盘、屏幕边缘、悬浮小窗，以及原生 macOS 小部件。
 
 ## 支持的工具
 
@@ -64,6 +64,7 @@
     <img src=".github/assets/tools-icon/kiro.png" width="40" alt="Kiro" title="Kiro" />
     <img src=".github/assets/tools-icon/codebuddy.png" width="40" alt="CodeBuddy" title="CodeBuddy" />
     <img src=".github/assets/tools-icon/workbuddy.png" width="40" alt="WorkBuddy" title="WorkBuddy" />
+    <img src=".github/assets/tools-icon/workbuddy-ai.png" width="40" alt="WorkBuddy AI" title="WorkBuddy AI" />
     <img src=".github/assets/tools-icon/proma.png" width="40" alt="Proma" title="Proma" />
     <img src=".github/assets/tools-icon/catpaw.png" width="40" alt="CatPaw" title="CatPaw" />
     <img src=".github/assets/tools-icon/qoder.png" width="40" alt="Qoder" title="Qoder" />
@@ -154,7 +155,7 @@ brew install --cask token-monitor
 
 ### 用量追踪
 
-- **实时 Token 追踪**：Claude Code、Codex、Cursor、GitHub Copilot、Antigravity、OpenCode 等 38+ 种 AI 工具，每轮对话后 UI 在数秒内刷新（完整列表见上方表格）
+- **实时 Token 追踪**：Claude Code、Codex、Cursor、GitHub Copilot、Antigravity、OpenCode 等 39+ 种 AI 工具，每轮对话后 UI 在数秒内刷新（完整列表见上方表格）
 - **实时 Token 速率**：可选显示的实时读数，以 `tok/s` 显示生成速度或以 `tok/min` 显示总消耗
 - **单个 session 明细**：点进某个 session，可看每条提问的 Token 消耗，并展开查看每次回复的 Token 拆分与用到的工具（打开时才实时读取本机 transcript 或数据库，绝不同步）
 - **缓存命中统计**：点击任何工具或模型，展开查看输入 Token（缓存命中与未命中）、输出 Token 的详细分类及命中率百分比
@@ -236,6 +237,7 @@ Token Monitor 对 Token 用量、账户额度和 session 明细分别支持：
 | <img src=".github/assets/tools-icon/kiro.png" width="28" alt="Kiro" /> | Kiro | `~/.kiro/sessions/cli/`、Kiro IDE globalStorage 与 `kiro-cli` 数据库 | ✅ | ✅ | — |
 | <img src=".github/assets/tools-icon/codebuddy.png" width="28" alt="CodeBuddy" /> | CodeBuddy | `~/.codebuddy/projects/` 与 IDE / VS Code 扩展日志 | ✅ | — | ✅ |
 | <img src=".github/assets/tools-icon/workbuddy.png" width="28" alt="WorkBuddy" /> | WorkBuddy | `~/.workbuddy/projects/`、`~/.workbuddy/workbuddy.db` | ✅ | ✅ | ✅ |
+| <img src=".github/assets/tools-icon/workbuddy-ai.png" width="28" alt="WorkBuddy AI" /> | WorkBuddy AI | `~/.workbuddy-ai/projects/`、`~/.workbuddy-ai/workbuddy.db` | ✅ | — | ✅ |
 | <img src=".github/assets/tools-icon/proma.png" width="28" alt="Proma" /> | Proma | `~/.proma/` (`agent-sessions/`, `sdk-config/sessions/`, `sdk-config/projects/`), `~/.proma-dev/` | ✅ | — | — |
 | <img src=".github/assets/tools-icon/catpaw.png" width="28" alt="CatPaw" /> | CatPaw | `<platform-app-data>/` (`catpaw-moon/`, `catpaw-overseas/`, `catpaw-memory-*.db`) | ✅ | — | — |
 | <img src=".github/assets/tools-icon/qoder.png" width="28" alt="Qoder" /> | Qoder | `~/.qoder-cn/projects/**/*.jsonl`, legacy `<platform-app-data>/QoderCN/SharedClientCache/cache/db/local.db`（仅限中国版） | ✅ | ✅ | — |
@@ -291,15 +293,15 @@ Qoder CN 的 Token 用量来自应用本地数据，而非 API —— 在 Settin
 
 | 功能 | 支持的工具／来源 | 补充说明 |
 |---------|-------------------------|------------|
-| 会话标题 | Claude Code, Codex, OpenCode, Cursor, Antigravity, Cline CLI, Factory Droid, Kimi CLI, Grok Build, Pi, Oh My Pi, OmO Native, MiMo, ZCode, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness, Cherry Studio, Devin CLI, fx, MiniMax Code | — |
-| 每次提示／回复的用量与工具调用 | Claude Code, Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness | 明细仅在本地读取，不会同步。 |
+| 会话标题 | Claude Code, Codex, OpenCode, Cursor, Antigravity, Cline CLI, Factory Droid, Kimi CLI, Grok Build, Pi, Oh My Pi, OmO Native, MiMo, ZCode, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness, Cherry Studio, Devin CLI, fx, MiniMax Code | — |
+| 每次提示／回复的用量与工具调用 | Claude Code, Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness | 明细仅在本地读取，不会同步。 |
 | 上下文用量／剩余空间 | Claude Code, Codex, DeepSeek Harness | Claude Code 的上下文上限根据模型估算。 |
 | 缓存用量／会话缓存命中率 | 提供缓存字段的来源，例如 Claude Code, Codex, OpenCode, Cursor, Kimi, Pi, Oh My Pi, OmO Native, DeepSeek Harness | 有缓存用量数据时才显示命中率。 |
 | 缓存剩余时间估算 | Claude Code | 根据记录中的缓存层级估算为 5 分钟或 1 小时。 |
 | 输出速度／Token 消耗速率 | Claude Code, Codex, OpenCode, Antigravity, Kimi, GitHub Copilot, Pi, Oh My Pi, OmO Native, Kilo CLI, MiMo Code/MiMo Desktop, Muse Code, ZCode CLI, Kiro, DeepSeek Harness, Devin CLI | `tok/s` 为输出速度，`tok/min` 为总 Token 消耗速率；计时可能包含等待。 |
 | 推理强度设置 | Claude Code, Codex | 仅显示会话中明确记录的设置值。 |
-| 推理 Token 数 | Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness | — |
-| 回合开始／完成识别 | Claude Code, Codex, OpenCode, Cursor, CodeBuddy, WorkBuddy, DeepSeek Harness | 依据工具记录的回合信号。其他工具或缺少有效信号时，最后活动后约 10 分钟内估算为运行中。 |
+| 推理 Token 数 | Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness | — |
+| 回合开始／完成识别 | Claude Code, Codex, OpenCode, Cursor, CodeBuddy, WorkBuddy, WorkBuddy AI, DeepSeek Harness | 依据工具记录的回合信号。其他工具或缺少有效信号时，最后活动后约 10 分钟内估算为运行中。 |
 | 原生运行中／等待输入状态 | Claude Code, Codex | — |
 | 父会话／子代理分组 | Codex, Antigravity, Oh My Pi, ZCode；具有可验证父会话链接的 T3 Code 会话 | Claude Code 的分组通过 T3 Code 提供。 |
 | 同一对话的续接记录分组 | Codex；具有已验证线程链接的 T3 Code 会话 | — |

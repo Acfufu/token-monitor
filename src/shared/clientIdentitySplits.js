@@ -16,31 +16,50 @@
 // the pair back together for days that were captured while they were merged,
 // and the session archive treats an archived merged-id session as already
 // covered when the split id reports the same session live.
+//
+// `generation` is the client-identity era the split introduced: an archive
+// entry written under a lower generation predates THAT split and its merged-id
+// usage may also contain the split client. Splits at different times therefore
+// fold independently — an entry from the Oh My Pi era (generation 2) is taken
+// at face value for pi/omp but still folds workbuddy-ai into workbuddy.
 const CLIENT_IDENTITY_SPLITS = Object.freeze([
   Object.freeze({
     merged: 'pi',
     split: 'omp',
+    generation: 2,
+  }),
+  Object.freeze({
+    // WorkBuddy AI (international build) split from WorkBuddy. Tokscale scanned
+    // `~/.workbuddy-ai` under `workbuddy` since 5.5 (#1334), so every workbuddy
+    // snapshot written before the split covers both editions.
+    merged: 'workbuddy',
+    split: 'workbuddy-ai',
+    generation: 3,
   })
 ]);
 
 const SPLIT_TO_MERGED = new Map(CLIENT_IDENTITY_SPLITS.map(({ merged, split }) => [split, merged]));
 const MERGED_TO_SPLIT = new Map(CLIENT_IDENTITY_SPLITS.map(({ merged, split }) => [merged, split]));
 
-// The client-identity generation an archive entry was written under.
+// The client-identity generation this version writes.
 //
-// An entry with no generation predates the split, so its merged-id usage may also
-// contain the split client. An entry carrying this value was written after the
-// split and is taken at face value. This is provenance the entry has to carry
-// itself: inferring it from the archive's current contents fails in both
-// directions, because a merged-era day and a post-split day that happens to have
-// only the merged client look identical ("pi, no omp" is a legal post-split
-// state), and a post-split day that legitimately records Pi first and Oh My Pi
-// later would otherwise be folded forever.
-const CLIENT_IDENTITY_GENERATION = 2;
+// An entry with no generation predates every split, so its merged-id usage may
+// also contain each split client. An entry carrying a generation was written
+// after the splits up to that number and is taken at face value for them. This
+// is provenance the entry has to carry itself: inferring it from the archive's
+// current contents fails in both directions, because a merged-era day and a
+// post-split day that happens to have only the merged client look identical
+// ("pi, no omp" is a legal post-split state), and a post-split day that
+// legitimately records Pi first and Oh My Pi later would otherwise be folded
+// forever.
+const CLIENT_IDENTITY_GENERATION = 3;
 
-function isPreSplitEntry(entry) {
-  const generation = Number(entry?.clientIdentityGeneration);
-  return !Number.isFinite(generation) || generation < CLIENT_IDENTITY_GENERATION;
+// True when the entry predates the split whose era is `generation`: it either
+// carries no marker at all (predates every split) or a marker from before this
+// split was introduced.
+function isPreSplitEntry(entry, generation) {
+  const marker = Number(entry?.clientIdentityGeneration);
+  return !Number.isFinite(marker) || marker < generation;
 }
 
 // The id a split client rows were recorded under before the split, or null

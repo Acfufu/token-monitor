@@ -315,6 +315,10 @@ function normalizeClientName(value) {
   if (raw.includes('zcode')) return 'zcode';
   if (raw.includes('kiro')) return 'kiro';
   if (raw.includes('codebuddy')) return 'codebuddy';
+  // WorkBuddy AI before the bare WorkBuddy test: the international build's id
+  // contains "workbuddy", which the bare test would otherwise swallow. The
+  // regex also accepts spaced display spellings ("WorkBuddy AI").
+  if (raw === 'workbuddyai' || /^workbuddy[\s_-]*ai$/.test(raw)) return 'workbuddy-ai';
   if (raw.includes('workbuddy')) return 'workbuddy';
   if (raw.includes('proma')) return 'proma';
   if (raw === 'catpaw') return 'catpaw';

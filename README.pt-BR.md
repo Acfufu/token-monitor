@@ -30,7 +30,7 @@
 
 ## O que é o Token Monitor?
 
-Um app de desktop que mostra o uso de tokens ao vivo e os Limites de Ferramentas de IA em 48+ ferramentas de programação com IA — Claude Code, Codex, Cursor, GitHub Copilot, Cherry Studio e muitas outras — com sincronização multidispositivo em tempo real, tendências de uso histórico e detalhamentos por ferramenta, dispositivo, modelo, sessão ou projeto. Ele aparece onde você estiver olhando: a janela principal, o notch do MacBook, a barra de menus ou a bandeja do sistema, a borda da tela, uma bolha flutuante e widgets nativos do macOS.
+Um app de desktop que mostra o uso de tokens ao vivo e os Limites de Ferramentas de IA em 49+ ferramentas de programação com IA — Claude Code, Codex, Cursor, GitHub Copilot, Cherry Studio e muitas outras — com sincronização multidispositivo em tempo real, tendências de uso histórico e detalhamentos por ferramenta, dispositivo, modelo, sessão ou projeto. Ele aparece onde você estiver olhando: a janela principal, o notch do MacBook, a barra de menus ou a bandeja do sistema, a borda da tela, uma bolha flutuante e widgets nativos do macOS.
 
 ## Ferramentas suportadas
 
@@ -64,6 +64,7 @@ Uso de tokens, limites de ferramentas de IA e detalhes de sessão das ferramenta
     <img src=".github/assets/tools-icon/kiro.png" width="40" alt="Kiro" title="Kiro" />
     <img src=".github/assets/tools-icon/codebuddy.png" width="40" alt="CodeBuddy" title="CodeBuddy" />
     <img src=".github/assets/tools-icon/workbuddy.png" width="40" alt="WorkBuddy" title="WorkBuddy" />
+    <img src=".github/assets/tools-icon/workbuddy-ai.png" width="40" alt="WorkBuddy AI" title="WorkBuddy AI" />
     <img src=".github/assets/tools-icon/proma.png" width="40" alt="Proma" title="Proma" />
     <img src=".github/assets/tools-icon/catpaw.png" width="40" alt="CatPaw" title="CatPaw" />
     <img src=".github/assets/tools-icon/qoder.png" width="40" alt="Qoder" title="Qoder" />
@@ -154,7 +155,7 @@ Abra o app para começar a acompanhar o uso local deste dispositivo, sem configu
 
 ### Acompanhamento de uso
 
-- **Rastreamento de tokens ao vivo** — Claude Code, Codex, Cursor, GitHub Copilot, Antigravity, OpenCode e 38+ ferramentas de IA, com a interface atualizando poucos segundos após cada turno (lista completa na tabela acima)
+- **Rastreamento de tokens ao vivo** — Claude Code, Codex, Cursor, GitHub Copilot, Antigravity, OpenCode e 39+ ferramentas de IA, com a interface atualizando poucos segundos após cada turno (lista completa na tabela acima)
 - **Taxa de tokens ao vivo** — uma leitura opcional da velocidade de geração em `tok/s` ou do consumo total em `tok/min`
 - **Detalhes por sessão** — abra uma sessão para ver os tokens por prompt, expansível até a divisão exata de tokens de cada resposta e as ferramentas usadas (lido sob demanda de transcrições ou bancos locais, nunca sincronizado)
 - **Estatísticas de acerto de cache** — clique em qualquer ferramenta ou modelo para expandir um detalhamento completo dos tokens de entrada (acerto no cache vs. fora do cache), tokens de saída e as porcentagens de acerto
@@ -236,6 +237,7 @@ O Token Monitor suporta uso de tokens, verificação de limites da conta e detal
 | <img src=".github/assets/tools-icon/kiro.png" width="28" alt="Kiro" /> | Kiro | `~/.kiro/sessions/cli/`, Kiro IDE globalStorage & `kiro-cli` DB | ✅ | ✅ | — |
 | <img src=".github/assets/tools-icon/codebuddy.png" width="28" alt="CodeBuddy" /> | CodeBuddy | `~/.codebuddy/projects/` + IDE / VS Code extension logs | ✅ | — | ✅ |
 | <img src=".github/assets/tools-icon/workbuddy.png" width="28" alt="WorkBuddy" /> | WorkBuddy | `~/.workbuddy/projects/`, `~/.workbuddy/workbuddy.db` | ✅ | ✅ | ✅ |
+| <img src=".github/assets/tools-icon/workbuddy-ai.png" width="28" alt="WorkBuddy AI" /> | WorkBuddy AI | `~/.workbuddy-ai/projects/`, `~/.workbuddy-ai/workbuddy.db` | ✅ | — | ✅ |
 | <img src=".github/assets/tools-icon/proma.png" width="28" alt="Proma" /> | Proma | `~/.proma/` (`agent-sessions/`, `sdk-config/sessions/`, `sdk-config/projects/`), `~/.proma-dev/` | ✅ | — | — |
 | <img src=".github/assets/tools-icon/catpaw.png" width="28" alt="CatPaw" /> | CatPaw | `<platform-app-data>/` (`catpaw-moon/`, `catpaw-overseas/`, `catpaw-memory-*.db`) | ✅ | — | — |
 | <img src=".github/assets/tools-icon/qoder.png" width="28" alt="Qoder" /> | Qoder | `~/.qoder-cn/projects/**/*.jsonl`, legado `<platform-app-data>/QoderCN/SharedClientCache/cache/db/local.db` (somente CN) | ✅ | ✅ | — |
@@ -286,15 +288,15 @@ O Token Monitor suporta uso de tokens, verificação de limites da conta e detal
 
 | Recurso | Ferramentas/fontes suportadas | Observações |
 |---------|-------------------------|------------|
-| Títulos de sessão | Claude Code, Codex, OpenCode, Cursor, Antigravity, Cline CLI, Factory Droid, Kimi CLI, Grok Build, Pi, Oh My Pi, OmO Native, MiMo, ZCode, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness, Cherry Studio, Devin CLI, fx, MiniMax Code | — |
-| Uso por prompt/resposta e chamadas de ferramentas | Claude Code, Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness | Os detalhes são lidos localmente e não são sincronizados. |
+| Títulos de sessão | Claude Code, Codex, OpenCode, Cursor, Antigravity, Cline CLI, Factory Droid, Kimi CLI, Grok Build, Pi, Oh My Pi, OmO Native, MiMo, ZCode, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness, Cherry Studio, Devin CLI, fx, MiniMax Code | — |
+| Uso por prompt/resposta e chamadas de ferramentas | Claude Code, Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness | Os detalhes são lidos localmente e não são sincronizados. |
 | Uso de contexto/espaço restante | Claude Code, Codex, DeepSeek Harness | O limite de contexto do Claude Code é estimado pelo modelo. |
 | Uso de cache/taxa de acerto do cache da sessão | Fontes com campos de cache, por exemplo: Claude Code, Codex, OpenCode, Cursor, Kimi, Pi, Oh My Pi, OmO Native, DeepSeek Harness | A taxa de acerto aparece quando há dados de uso de cache. |
 | Estimativa de tempo restante do cache | Claude Code | 5 minutos ou 1 hora, conforme o tipo de cache registrado. |
 | Velocidade de saída/taxa de consumo de tokens | Claude Code, Codex, OpenCode, Antigravity, Kimi, GitHub Copilot, Pi, Oh My Pi, OmO Native, Kilo CLI, MiMo Code/MiMo Desktop, Muse Code, ZCode CLI, Kiro, DeepSeek Harness, Devin CLI | Saída em `tok/s` e consumo total de tokens em `tok/min`; o tempo pode incluir espera. |
 | Nível de esforço de raciocínio | Claude Code, Codex | Exibe apenas configurações explicitamente registradas na sessão. |
-| Contagem de tokens de raciocínio | Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness | — |
-| Detecção de início/conclusão de turno | Claude Code, Codex, OpenCode, Cursor, CodeBuddy, WorkBuddy, DeepSeek Harness | Usa sinais de turno registrados pela ferramenta. Para outras ferramentas ou sem sinais válidos, estima como em execução por cerca de 10 minutos após a última atividade. |
+| Contagem de tokens de raciocínio | Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness | — |
+| Detecção de início/conclusão de turno | Claude Code, Codex, OpenCode, Cursor, CodeBuddy, WorkBuddy, WorkBuddy AI, DeepSeek Harness | Usa sinais de turno registrados pela ferramenta. Para outras ferramentas ou sem sinais válidos, estima como em execução por cerca de 10 minutos após a última atividade. |
 | Estado nativo: em execução/aguardando entrada | Claude Code, Codex | — |
 | Agrupamento de sessões pai e subagentes | Codex, Antigravity, Oh My Pi, ZCode; sessões do T3 Code com vínculos verificáveis à sessão pai | O agrupamento do Claude Code é oferecido pelo T3 Code. |
 | Agrupamento de registros de continuação da mesma conversa | Codex; sessões do T3 Code com vínculos verificados à mesma thread | — |

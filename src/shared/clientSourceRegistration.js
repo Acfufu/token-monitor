@@ -76,7 +76,7 @@ const SOURCE_MARKERS = [
   { marker: '.config/kiro/User/globalStorage/kiro.kiroagent', client: 'kiro' },
   { marker: '.codebuddy/projects', client: 'codebuddy' },
   { marker: '.workbuddy', client: 'workbuddy' },
-  { marker: '.workbuddy-ai', client: 'workbuddy' },
+  { marker: '.workbuddy-ai', client: 'workbuddy-ai' },
   { marker: '.proma/agent-sessions', client: 'proma' },
   { marker: '.proma/sdk-config/sessions', client: 'proma' },
   { marker: '.proma/sdk-config/projects', client: 'proma' },

@@ -20,7 +20,9 @@ test('a real launch seeds the split client once and records it', () => {
   const { dir, env } = tempSharedDir();
   assert.equal(seedAgentClients('claude,pi', { env }), 'claude,pi,omp');
   const marker = JSON.parse(fs.readFileSync(markerPath(dir), 'utf8'));
-  assert.deepEqual(marker.applied, ['omp']);
+  // Every split is decided by the pass even when its parent is not tracked,
+  // so the workbuddy-ai split is recorded here without being seeded.
+  assert.deepEqual(marker.applied, ['omp', 'workbuddy-ai']);
   assert.equal(marker.sourceCsv, 'claude,pi');
   assert.equal(marker.clients, 'claude,pi,omp');
 });
@@ -35,7 +37,7 @@ test('a dry run resolves the split client without recording the migration', () =
 
   // The next real launch still performs the migration.
   assert.equal(seedAgentClients('claude,pi', { env }), 'claude,pi,omp');
-  assert.deepEqual(JSON.parse(fs.readFileSync(markerPath(dir), 'utf8')).applied, ['omp']);
+  assert.deepEqual(JSON.parse(fs.readFileSync(markerPath(dir), 'utf8')).applied, ['omp', 'workbuddy-ai']);
 });
 
 // The env CSV is redeclared on every launch, so the seeded result is what must

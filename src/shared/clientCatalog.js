@@ -81,6 +81,12 @@
     { id: 'kiro', label: 'Kiro' },
     { id: 'codebuddy', label: 'CodeBuddy' },
     { id: 'workbuddy', label: 'WorkBuddy' },
+    // WorkBuddy AI was folded into the `workbuddy` row until the two editions
+    // were split apart (see clientIdentitySplits.js): both builds keep their
+    // own home (`~/.workbuddy` CN, `~/.workbuddy-ai` international) and write
+    // byte-identical transcripts, so the fork's `workbuddy-ai` client reuses
+    // the shared Tencent buddy reader on the AI root alone.
+    { id: 'workbuddy-ai', label: 'WorkBuddy AI', forkOnly: true },
     { id: 'proma', label: 'Proma' },
     { id: 'catpaw', label: 'CatPaw', defaultTracked: false, forkOnly: true },
     { id: 'qodercn', label: 'Qoder CN', defaultTracked: false, forkOnly: true },

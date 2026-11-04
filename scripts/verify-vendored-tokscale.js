@@ -333,6 +333,36 @@ const TOKEN_CONTRACT_CASES = Object.freeze([
     }
   },
   {
+    // Fork-only client (crates/tokscale-core/src/token_monitor/workbuddy_ai.rs):
+    // the international WorkBuddy AI build shares the Tencent buddy transcript
+    // reader byte for byte; only the home (`~/.workbuddy-ai`) and the client id
+    // differ. The usage object is inclusive (total = prompt + completion), so
+    // the cached prefix is split out of input.
+    client: 'workbuddy-ai',
+    expectedRow: { model: 'gpt-5.6', input: 400, output: 120, cacheRead: 600, cacheWrite: 0, reasoning: 0 },
+    hasExplicitTotal: false,
+    expectedPeriod: { totalTokens: 1120, clientTokens: 1120, clientOutputTokens: 120 },
+    expectedSession: { id: 'tm-contract', totalTokens: 1120, outputTokens: 120, reasoningTokens: 0 },
+    writeFixture(home) {
+      const dir = path.join(home, '.workbuddy-ai', 'projects', 'ws');
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, 'tm-contract.jsonl'), `${JSON.stringify({
+        id: 'tm-contract-a1',
+        timestamp: 1789725601000,
+        type: 'message',
+        role: 'assistant',
+        status: 'completed',
+        sessionId: 'tm-contract',
+        cwd: '/tmp/wb-ai-workspace',
+        providerData: {
+          model: 'gpt-5.6',
+          messageId: 'msg-1',
+          usage: { input_tokens: 1000, output_tokens: 120, total_tokens: 1120, cache_read_input_tokens: 600 }
+        }
+      })}\n`);
+    }
+  },
+  {
     // The fork's `mcode` supplement (crates/tokscale-core/src/token_monitor/
     // mcode.rs) reads MiniMax Code's runtime store. Pi usage keeps cache reads
     // out of `input`, and a message retained across compaction appears in both

@@ -388,14 +388,21 @@ function clientSourceRoots(clientsCsv, options = {}) {
   );
   // WorkBuddy (Tencent): watch only the detailed session dirs (projects/*.jsonl,
   // the preferred source) — not the whole app homes, whose config / auth churn
-  // would add polling load and spurious ticks with no usage change. WorkBuddy
-  // 5.5 moved to ~/.workbuddy-ai; keep the legacy ~/.workbuddy root because
-  // tokscale 4.17.0 still scans both. A db-only install still refreshes via the
-  // periodic full tick; the WSL markers stay broader so those homes are found.
+  // would add polling load and spurious ticks with no usage change. The two
+  // editions keep separate homes — CN WorkBuddy in ~/.workbuddy, the
+  // international WorkBuddy AI in ~/.workbuddy-ai — and the fork scans each
+  // root under its own client id, so each lane watches its own root only. The
+  // AI root's 5.5-era transcripts still resolve for CN metadata through the
+  // provider's roots, but that tree is static and is not watched. A db-only
+  // install still refreshes via the periodic full tick; the WSL markers stay
+  // broader so those homes are found.
   add(
     'workbuddy',
-    ['workbuddy-projects', path.join(home, '.workbuddy', 'projects')],
-    ['workbuddy-projects', path.join(home, '.workbuddy-ai', 'projects')]
+    ['workbuddy-projects', path.join(home, '.workbuddy', 'projects')]
+  );
+  add(
+    'workbuddy-ai',
+    ['workbuddy-ai-projects', path.join(home, '.workbuddy-ai', 'projects')]
   );
   // Proma — tokscale reads the Agent journals and both SDK transcript trees of
   // the release (.proma) and dev (.proma-dev) homes under its effective home.

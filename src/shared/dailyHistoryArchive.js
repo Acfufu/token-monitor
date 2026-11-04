@@ -238,9 +238,13 @@ function graphsArray(graphs) {
 function foldClientForDate(client, date, options = {}) {
   if (!client) return client;
   const day = options.archive?.days?.[date];
-  if (!day || !isPreSplitEntry(day)) return client;
-  for (const { merged, split } of CLIENT_IDENTITY_SPLITS) {
+  if (!day) return client;
+  for (const { merged, split, generation } of CLIENT_IDENTITY_SPLITS) {
     if (client !== split) continue;
+    // Each split folds by its own era: a day from before the Oh My Pi split
+    // still folds omp, and a day written after it (but before the WorkBuddy AI
+    // split) still folds workbuddy-ai without touching omp.
+    if (!isPreSplitEntry(day, generation)) continue;
     return merged;
   }
   return client;
@@ -309,16 +313,23 @@ function captureDailyHistoryArchive(existingArchive, graphs, options = {}) {
     if (hasTodayKey && date > todayKey) continue;
     const existing = archive.days[date] || null;
     const previous = existing || { date, activeTimeMs: 0, observations: {} };
-    // A day already stored without a marker predates the split, so it keeps that
-    // status: its observations genuinely span both products and must keep folding.
-    // Anything else is written at the current generation, which is what stops a
-    // post-split day from being absorbed into the merged id when Pi happens to be
-    // scanned first.
-    const legacy = existing !== null && isPreSplitEntry(existing);
+    // A day already stored without a marker predates every split, so it keeps
+    // that status: its observations genuinely span the merged products and must
+    // keep folding. A day carrying a marker keeps its own generation — it was
+    // written in a known era, and its stored rows may still hold usage that
+    // only a later split separates, so upgrading the marker would forbid the
+    // fold that day still needs. Only a brand-new day is stamped at the current
+    // generation, which is what stops a post-split day from being absorbed into
+    // the merged id when Pi happens to be scanned first.
+    const storedGeneration = Number(existing?.clientIdentityGeneration);
     const next = {
       date,
       activeTimeMs: Math.max(previous.activeTimeMs, incoming.activeTimeMs),
-      ...(legacy ? {} : { clientIdentityGeneration: CLIENT_IDENTITY_GENERATION }),
+      ...(existing === null
+        ? { clientIdentityGeneration: CLIENT_IDENTITY_GENERATION }
+        : Number.isFinite(storedGeneration)
+          ? { clientIdentityGeneration: storedGeneration }
+          : {}),
       observations: { ...previous.observations }
     };
     for (const [key, observation] of Object.entries(incoming.observations)) {

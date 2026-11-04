@@ -10,10 +10,16 @@ const { findOmpSubagentSessionFile } = require('./providers/omp/subagents');
 const { resolveSenpiSessionsDirs } = require('./providers/senpi/paths');
 const { findSubagentSessionFile } = require('./providers/codebuddy/subagents');
 
-// 5.5 moved the WorkBuddy home to ~/.workbuddy-ai and tokscale still scans
-// both, so a session reported from either root resolves from either.
+// The editions keep separate homes — CN WorkBuddy in ~/.workbuddy, the
+// international WorkBuddy AI in ~/.workbuddy-ai. The CN list keeps the AI
+// root as a 5.5-era fallback (that build briefly lived there), so old CN
+// sessions still resolve; AI sessions resolve from the AI root alone.
 function workbuddyProjectsRoots(home) {
   return [path.join(home, '.workbuddy', 'projects'), path.join(home, '.workbuddy-ai', 'projects')];
+}
+
+function workbuddyAiProjectsRoots(home) {
+  return [path.join(home, '.workbuddy-ai', 'projects')];
 }
 
 function isSafeSessionId(sessionId) {
@@ -190,8 +196,9 @@ function resolveSessionFile(client, sessionId, home, options = {}) {
       || findSubagentSessionFile(projectsRoot, id, { fs: options.fs })
       || '';
   }
-  if (client === 'workbuddy') {
-    for (const root of workbuddyProjectsRoots(home)) {
+  if (client === 'workbuddy' || client === 'workbuddy-ai') {
+    const roots = client === 'workbuddy' ? workbuddyProjectsRoots(home) : workbuddyAiProjectsRoots(home);
+    for (const root of roots) {
       const found = findSessionFiles(root, [id]).get(id);
       if (found) return found;
     }

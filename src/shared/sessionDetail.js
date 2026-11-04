@@ -710,7 +710,7 @@ function readSessionDetail({ client, sessionId, period = 'total', sessionCost = 
     parsed = client === 'codex' ? parseCodexTranscriptData(lines) : null;
     // WorkBuddy writes the same transcript family as CodeBuddy Code.
     events = parsed ? parsed.events
-      : (client === 'codebuddy' || client === 'workbuddy')
+      : (client === 'codebuddy' || client === 'workbuddy' || client === 'workbuddy-ai')
         ? parseCodebuddyTranscriptLines(lines)
       : PI_FORMAT_CLIENTS.has(client)
         ? parsePiTranscriptLines(lines)

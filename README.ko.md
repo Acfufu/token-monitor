@@ -30,7 +30,7 @@
 
 ## Token Monitor란?
 
-Claude Code, Codex, Cursor, GitHub Copilot, Cherry Studio 등 48개 이상의 AI 코딩 도구의 실시간 토큰 사용량과 AI 도구 한도를 보여 주는 데스크톱 앱입니다. 여러 기기 간 실시간 동기화, 사용 추세 기록, 도구·기기·모델·세션·프로젝트별 분류 보기를 지원합니다. 메인 창, MacBook 노치, 메뉴 막대나 시스템 트레이, 화면 가장자리, 플로팅 버블, 네이티브 macOS 위젯 등 시선이 닿는 곳 어디서나 확인할 수 있습니다.
+Claude Code, Codex, Cursor, GitHub Copilot, Cherry Studio 등 49개 이상의 AI 코딩 도구의 실시간 토큰 사용량과 AI 도구 한도를 보여 주는 데스크톱 앱입니다. 여러 기기 간 실시간 동기화, 사용 추세 기록, 도구·기기·모델·세션·프로젝트별 분류 보기를 지원합니다. 메인 창, MacBook 노치, 메뉴 막대나 시스템 트레이, 화면 가장자리, 플로팅 버블, 네이티브 macOS 위젯 등 시선이 닿는 곳 어디서나 확인할 수 있습니다.
 
 ## 지원 도구
 
@@ -64,6 +64,7 @@ Claude Code, Codex, Cursor, GitHub Copilot, Cherry Studio 등 48개 이상의 AI
     <img src=".github/assets/tools-icon/kiro.png" width="40" alt="Kiro" title="Kiro" />
     <img src=".github/assets/tools-icon/codebuddy.png" width="40" alt="CodeBuddy" title="CodeBuddy" />
     <img src=".github/assets/tools-icon/workbuddy.png" width="40" alt="WorkBuddy" title="WorkBuddy" />
+    <img src=".github/assets/tools-icon/workbuddy-ai.png" width="40" alt="WorkBuddy AI" title="WorkBuddy AI" />
     <img src=".github/assets/tools-icon/proma.png" width="40" alt="Proma" title="Proma" />
     <img src=".github/assets/tools-icon/catpaw.png" width="40" alt="CatPaw" title="CatPaw" />
     <img src=".github/assets/tools-icon/qoder.png" width="40" alt="Qoder" title="Qoder" />
@@ -154,7 +155,7 @@ brew install --cask token-monitor
 
 ### 사용량 추적
 
-- **실시간 토큰 추적** — Claude Code, Codex, Cursor, GitHub Copilot, Antigravity, OpenCode 등 38개 이상의 AI 도구, 턴당 수 초 내 UI 갱신 (전체 목록은 위 표 참고)
+- **실시간 토큰 추적** — Claude Code, Codex, Cursor, GitHub Copilot, Antigravity, OpenCode 등 39개 이상의 AI 도구, 턴당 수 초 내 UI 갱신 (전체 목록은 위 표 참고)
 - **실시간 토큰 속도** — 생성 속도를 `tok/s`로, 총 소모를 `tok/min`으로 보여주는 선택형 실시간 표시
 - **세션별 상세** — 세션을 열면 프롬프트별 토큰, 응답별 토큰 분할·사용 도구까지 확장 (로컬 transcript/DB를 필요할 때만 읽으며 동기화하지 않음)
 - **캐시 히트 통계** — 도구·모델 클릭 시 입력 토큰(캐시 hit/miss), 출력 토큰, 히트율 상세
@@ -236,6 +237,7 @@ Token Monitor는 **토큰 사용량**, **계정 한도**, **세션 상세**를 �
 | <img src=".github/assets/tools-icon/kiro.png" width="28" alt="Kiro" /> | Kiro | `~/.kiro/sessions/cli/`, Kiro IDE globalStorage 및 `kiro-cli` DB | ✅ | ✅ | — |
 | <img src=".github/assets/tools-icon/codebuddy.png" width="28" alt="CodeBuddy" /> | CodeBuddy | `~/.codebuddy/projects/` + IDE / VS Code 확장 로그 | ✅ | — | ✅ |
 | <img src=".github/assets/tools-icon/workbuddy.png" width="28" alt="WorkBuddy" /> | WorkBuddy | `~/.workbuddy/projects/`, `~/.workbuddy/workbuddy.db` | ✅ | ✅ | ✅ |
+| <img src=".github/assets/tools-icon/workbuddy-ai.png" width="28" alt="WorkBuddy AI" /> | WorkBuddy AI | `~/.workbuddy-ai/projects/`, `~/.workbuddy-ai/workbuddy.db` | ✅ | — | ✅ |
 | <img src=".github/assets/tools-icon/proma.png" width="28" alt="Proma" /> | Proma | `~/.proma/` (`agent-sessions/`, `sdk-config/sessions/`, `sdk-config/projects/`), `~/.proma-dev/` | ✅ | — | — |
 | <img src=".github/assets/tools-icon/catpaw.png" width="28" alt="CatPaw" /> | CatPaw | `<platform-app-data>/` (`catpaw-moon/`, `catpaw-overseas/`, `catpaw-memory-*.db`) | ✅ | — | — |
 | <img src=".github/assets/tools-icon/qoder.png" width="28" alt="Qoder" /> | Qoder | `~/.qoder-cn/projects/**/*.jsonl`, legacy `<platform-app-data>/QoderCN/SharedClientCache/cache/db/local.db`(중국판 전용) | ✅ | ✅ | — |
@@ -291,15 +293,15 @@ Qoder CN 토큰 사용량은 API가 아닌 앱의 로컬 데이터에서 읽습�
 
 | 기능 | 지원 도구／데이터 소스 | 참고 |
 |---------|-------------------------|------------|
-| 세션 제목 | Claude Code, Codex, OpenCode, Cursor, Antigravity, Cline CLI, Factory Droid, Kimi CLI, Grok Build, Pi, Oh My Pi, OmO Native, MiMo, ZCode, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness, Cherry Studio, Devin CLI, fx, MiniMax Code | — |
-| 프롬프트／응답별 사용량 및 도구 호출 | Claude Code, Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness | 상세 정보는 로컬에서만 읽으며 동기화하지 않습니다. |
+| 세션 제목 | Claude Code, Codex, OpenCode, Cursor, Antigravity, Cline CLI, Factory Droid, Kimi CLI, Grok Build, Pi, Oh My Pi, OmO Native, MiMo, ZCode, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness, Cherry Studio, Devin CLI, fx, MiniMax Code | — |
+| 프롬프트／응답별 사용량 및 도구 호출 | Claude Code, Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness | 상세 정보는 로컬에서만 읽으며 동기화하지 않습니다. |
 | 컨텍스트 사용량／남은 공간 | Claude Code, Codex, DeepSeek Harness | Claude Code의 컨텍스트 한도는 모델을 기준으로 추정합니다. |
 | 캐시 사용량／세션 캐시 적중률 | 캐시 필드를 제공하는 소스. 예: Claude Code, Codex, OpenCode, Cursor, Kimi, Pi, Oh My Pi, OmO Native, DeepSeek Harness | 캐시 사용량 데이터가 있을 때 적중률을 표시합니다. |
 | 예상 캐시 잔여 시간 | Claude Code | 기록된 캐시 유형에 따라 5분 또는 1시간으로 추정합니다. |
 | 출력 속도／토큰 소비 속도 | Claude Code, Codex, OpenCode, Antigravity, Kimi, GitHub Copilot, Pi, Oh My Pi, OmO Native, Kilo CLI, MiMo Code/MiMo Desktop, Muse Code, ZCode CLI, Kiro, DeepSeek Harness, Devin CLI | 출력 속도는 `tok/s`, 전체 토큰 소비 속도는 `tok/min`이며, 측정 시간에 대기가 포함될 수 있습니다. |
 | 추론 강도 설정 | Claude Code, Codex | 세션에 명시적으로 기록된 설정값만 표시합니다. |
-| 추론 토큰 수 | Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, Reasonix, DeepSeek Harness | — |
-| 턴 시작／완료 감지 | Claude Code, Codex, OpenCode, Cursor, CodeBuddy, WorkBuddy, DeepSeek Harness | 도구가 기록한 턴 신호를 사용합니다. 기타 도구나 유효한 신호가 없는 경우 마지막 활동 후 약 10분 동안 실행 중으로 추정합니다. |
+| 추론 토큰 수 | Codex, OpenCode, Pi, Oh My Pi, OmO Native, CodeBuddy, WorkBuddy, WorkBuddy AI, Reasonix, DeepSeek Harness | — |
+| 턴 시작／완료 감지 | Claude Code, Codex, OpenCode, Cursor, CodeBuddy, WorkBuddy, WorkBuddy AI, DeepSeek Harness | 도구가 기록한 턴 신호를 사용합니다. 기타 도구나 유효한 신호가 없는 경우 마지막 활동 후 약 10분 동안 실행 중으로 추정합니다. |
 | 네이티브 실행 중／입력 대기 상태 | Claude Code, Codex | — |
 | 부모 세션／하위 에이전트 그룹화 | Codex, Antigravity, Oh My Pi, ZCode; 부모 세션 연결을 검증할 수 있는 T3 Code 세션 | Claude Code의 그룹화는 T3 Code를 통해 제공합니다. |
 | 동일 대화의 이어진 기록 그룹화 | Codex; 검증된 스레드 연결이 있는 T3 Code 세션 | — |
